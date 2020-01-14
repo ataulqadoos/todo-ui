@@ -1,0 +1,29 @@
+<div class="mat-app-background basic-container">
+  <form [formGroup]="itemDetailForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput placeholder="Name" value="" formControlName="name">
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+      <textarea matInput placeholder="Details" value="" formControlName="details"></textarea>
+    </mat-form-field>
+    <br/>
+    <label>Done:
+      <mat-checkbox formControlName="done"></mat-checkbox>
+    </label>
+    <br/>
+    <br/>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Schedule date" formControlName="scheduledAt">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br/>
+<!--    <label>Completed Date: {{ todoItem.completedAt }}</label>-->
+
+    <div class="button-row">
+      <button mat-raised-button [disabled]="!itemDetailForm.valid">Save</button>
+      <button mat-raised-button (click)="onDelete()">Delete</button>
+    </div>
+  </form>
+</div>

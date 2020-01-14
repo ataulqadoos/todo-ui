@@ -1,0 +1,19 @@
+<div class="mat-app-background basic-container">
+  <form [formGroup]="itemDetailForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput placeholder="Name" value="" formControlName="name">
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+      <textarea matInput placeholder="Details" value="" formControlName="details"></textarea>
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Schedule date" formControlName="scheduledAt">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div><button mat-raised-button [disabled]="!itemDetailForm.valid">Save</button> </div>
+  </form>
+</div>
