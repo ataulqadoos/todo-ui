@@ -10,7 +10,7 @@ import {tap} from "rxjs/operators";
 })
 export class TodoService {
 
-  private todoApiUrl = environment.todoApiUrl + 'todo';
+  private todoApiUrl = environment.todoApiUrl + '/todo';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -19,7 +19,7 @@ export class TodoService {
   constructor(private http: HttpClient) { }
 
   getTodoList() {
-    return this.http.get(environment.todoApiUrl + 'todo');
+    return this.http.get(environment.todoApiUrl + '/todo');
   }
 
   getTodoItem(id: number) {

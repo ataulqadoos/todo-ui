@@ -17,6 +17,11 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import { TodoItemCreateComponent } from './todo-item-create/todo-item-create.component';
+import { StoreModule } from '@ngrx/store';
+import {reducer} from "./shared/todo.reducers";
+import {EffectsModule} from "@ngrx/effects";
+import {TodoEffects} from "./shared/todo.effects";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [
@@ -37,7 +42,10 @@ import { TodoItemCreateComponent } from './todo-item-create/todo-item-create.com
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot({todoReducer: reducer}),
+    EffectsModule.forRoot([TodoEffects]),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]

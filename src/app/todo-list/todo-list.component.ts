@@ -2,6 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TodoService} from "../service/todo.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Store} from "@ngrx/store";
+import {GetTodoListAction} from "../shared/todo.actions";
+import {getTodoListResult} from "../shared/todo.selectors";
 
 export interface TodoItem {
   id: number;
@@ -23,21 +26,26 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   todoList: TodoItem[] = [];
 
-  todoServiceSubscription: Subscription;
+  todoStoreSubscription: Subscription;
 
   constructor(private todoService: TodoService,
-              private router: Router) {
+              private router: Router,
+              private store: Store<any>) {
   }
 
   ngOnInit() {
-    this.todoServiceSubscription = this.todoService.getTodoList().subscribe(data => {
-      this.todoList = data as TodoItem[];
-    });
+    if (this.todoList.length === 0) {
+      this.store.dispatch(new GetTodoListAction());
+      this.todoStoreSubscription = this.store.select(getTodoListResult).subscribe(result => {
+        console.log(result);
+        this.todoList = result;
+      });
+    }
   }
 
   ngOnDestroy(): void {
-    if (this.todoServiceSubscription) {
-      this.todoServiceSubscription.unsubscribe();
+    if (this.todoStoreSubscription) {
+      this.todoStoreSubscription.unsubscribe();
     }
   }
 
